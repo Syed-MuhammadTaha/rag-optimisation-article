@@ -16,18 +16,6 @@ class BioASQDataLoader:
                 "text": row["passage"]
             })
         return result
-    
-    def load_eval_data(self) -> List[Dict]:
-        """Load all question-answer evaluation data."""
-        result = []
-        for idx, row in self.qa_dataset.iterrows():
-            result.append({
-                "id": str(idx),
-                "question": row["question"],
-                "answer": row["answer"],
-                "relevant_passage_ids": [str(pid) for pid in row["relevant_passage_ids"]]
-            })
-        return result
 
     def filter_qa_dataset(self, qa_pairs: List[Dict], valid_passage_ids: List[str]) -> List[Dict]:
         """

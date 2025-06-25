@@ -53,7 +53,7 @@ class VectorStore:
         points = []
         for idx, (passage, embedding) in enumerate(zip(batch, embeddings), 1):
             point = models.PointStruct(
-                id=idx,  # Use incremental IDs
+                id=idx,
                 vector=embedding.tolist(),
                 payload={
                     "text": passage["text"],
@@ -120,21 +120,3 @@ class VectorStore:
         
         return total_time, processed_ids
     
-    def search(self, query: str, limit: int = 5) -> List[Dict]:
-        """Search for similar passages."""
-        query_vector = self.model.encode(query).tolist()
-        
-        results = self.client.search(
-            collection_name=self.collection_name,
-            query_vector=query_vector,
-            limit=limit
-        )
-        
-        return [
-            {
-                "id": str(r.id),
-                "text": r.payload["text"],
-                "score": r.score
-            }
-            for r in results
-        ] 
