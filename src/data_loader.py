@@ -1,7 +1,7 @@
 from typing import Dict, List
 import pandas as pd
 
-class BioASQDataLoader:
+class DataLoader:
     def __init__(self):
         # Load both configurations using pandas
         self.qa_dataset = pd.read_parquet("hf://datasets/rag-datasets/rag-mini-bioasq/data/test.parquet/part.0.parquet")
@@ -14,6 +14,18 @@ class BioASQDataLoader:
             result.append({
                 "id": str(idx),
                 "text": row["passage"]
+            })
+        return result
+    
+    def load_eval_data(self) -> List[Dict]:
+        """Load all question-answer evaluation data."""
+        result = []
+        for idx, row in self.qa_dataset.iterrows():
+            result.append({
+                "id": str(idx),
+                "question": row["question"],
+                "answer": row["answer"],
+                "relevant_passage_ids": [str(pid) for pid in row["relevant_passage_ids"]]
             })
         return result
 

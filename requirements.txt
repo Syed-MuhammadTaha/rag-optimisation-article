@@ -9,3 +9,6 @@ tqdm
 pandas
 numpy
 protobuf
+langchain
+langchain-qdrant
+langchain-community
