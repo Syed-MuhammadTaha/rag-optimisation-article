@@ -47,21 +47,13 @@ def main():
     # Retrieve similar passages
     print("\nRetrieving top 3 similar passages...")
     retrieved_passages = vector_store.retrieve_passages(test_query, k=3)
+    print(retrieved_passages)
     
-    # Display results
-    for i, passage in enumerate(retrieved_passages, 1):
-        print(f"\n--- Result {i} (Score: {passage['score']:.4f}) ---")
-        print(f"ID: {passage['id']}")
-        print(f"Text: {passage['text'][:200]}...")
-    
-    # Demonstrate LangChain retriever creation
-    print(f"\n--- Creating LangChain Retriever ---")
-    retriever = vector_store.create_retriever(
-        search_type="similarity",
-        search_kwargs={"k": 5}
-    )
-    print(f"Retriever created: {type(retriever)}")
-    print("This retriever can be used in LangChain RAG chains!")
+    # # Display results
+    # for i, passage in enumerate(retrieved_passages, 1):
+    #     print(f"\n--- Result {i} (Score: {passage['score']:.4f}) ---")
+    #     print(f"ID: {passage['id']}")
+    #     print(f"Text: {passage['text'][:200]}...")
 
 if __name__ == "__main__":
     main() 
