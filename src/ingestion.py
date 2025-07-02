@@ -128,7 +128,7 @@ class DocumentIngestion:
                 vector=embedding,
                 payload={
                     "text": passage["text"],
-                    "id": passage["id"]
+                    "passage_id": passage["id"]
                 }
             )
             points.append(point)
@@ -142,7 +142,7 @@ class DocumentIngestion:
             wait=False  # Async insertion for better performance
         )
 
-    def insert_passages(self, passages: List[Dict], limit: int = 2500) -> Tuple[float, List[int]]:
+    def insert_passages(self, passages: List[Dict], ) -> Tuple[float, List[int]]:
         """
         Insert passages into vector store using parallel batch processing with embedding cache.
         
@@ -154,7 +154,7 @@ class DocumentIngestion:
             tuple: (total_time, list of processed IDs)
         """
         start_time = time.time()
-        total_passages = min(len(passages), limit)
+        total_passages = len(passages)
         processed_ids = []
         
         # Split passages into batches with global ID tracking
